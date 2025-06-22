@@ -1,0 +1,45 @@
+# ─────────────────────────────────────────────────────────────
+# Multi-stage Dockerfile for optimized and secure builds
+# First stage installs dependencies and copies source code
+# Second stage uses a minimal runtime (distroless) image
+# ─────────────────────────────────────────────────────────────
+
+
+# ───────────────
+# Stage 1: Builder
+# ───────────────
+
+#Use a lightweight Node.js + Alpine image for dependency installation and build
+FROM node:18-alpine AS build
+
+#Set working directory inside the builder container
+WORKDIR /app
+
+#Copy .npmrc first to bypass SSL issues (e.g., self-signed certs)
+COPY .npmrc .npmrc
+
+#Copy only package.json first for layer caching and optimized rebuilds
+COPY package.json .
+
+#Install all project dependencies (including dev ones)
+RUN npm install
+
+#Copy full application source code into build container
+COPY . .
+
+
+# ───────────────
+# Stage 2: Final runtime
+# ───────────────
+
+#Use a secure, minimal base image with no shell or package manager
+FROM gcr.io/distroless/nodejs18-debian11
+
+#Set the same working directory in the final container
+WORKDIR /app
+
+#Copy the built app from the builder stage
+COPY --from=build /app /app
+
+#Define how to start the application (entrypoint for distroless)
+ENTRYPOINT ["/nodejs/bin/node", "index.js"]
