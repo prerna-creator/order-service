@@ -1,7 +1,6 @@
 # Order Service
 
-This is a simple Node.js microservice that provides a list of orders based on a user ID. It's designed to be containerized using Docker and follows best practices such as multi-stage builds.
-
+This is a simple Node.js microservice that provides a list of orders based on a user ID. It's designed to be containerized using Docker.
 ## 📦 Overview of Project Files
 
 ### `index.js`
