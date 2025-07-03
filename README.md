@@ -45,7 +45,20 @@ This is the standard Dockerfile to build the Node.js app image. It includes step
 # Build & Run Commands
 cd order-service
 docker build -t order-service .
+docker build -t [image_name] [path_to_directory_with_Dockerfile]
+docker build → Builds a Docker image
+
+-t [image_name] → Tags the image with a name (e.g., order-service)
+
+. → Refers to the current directory (where the Dockerfile is located)
+
+📌 Why use . (dot)?
+The dot (.) tells Docker to look for the Dockerfile in the current directory.
+
+Docker, by default, looks for a file named Dockerfile (case-sensitive: all lowercase, no extension) in that directory.
 docker run -d -p 3002:3002 --name order-service-container order-service
+docker run -d -p [host_port]:[container_port] --name [container_name] [image_name]
+
 
 # Access URLs
 curl localhost:3002
