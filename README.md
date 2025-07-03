@@ -58,6 +58,8 @@ The dot (.) tells Docker to look for the Dockerfile in the current directory.
 Docker, by default, looks for a file named Dockerfile (case-sensitive: all lowercase, no extension) in that directory.
 docker run -d -p 3002:3002 --name order-service-container order-service
 docker run -d -p [host_port]:[container_port] --name [container_name] [image_name]
+docker exec -it order-service-container sh
+
 
 
 # Access URLs
