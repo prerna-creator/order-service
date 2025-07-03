@@ -26,7 +26,7 @@ This helps control how `npm install` behaves inside the Docker build.
 
 ## 🐳 Docker Support
 
-There are two Dockerfiles included:
+There is a Dockerfiles included:
 
 ### `Dockerfile`
 This is the standard Dockerfile to build the Node.js app image. It includes steps like:
@@ -35,10 +35,6 @@ This is the standard Dockerfile to build the Node.js app image. It includes step
 - Installing dependencies
 - Setting the startup command
 
-### `Multi-stage-dockerfile`
-This is a **production-grade Dockerfile** using multi-stage builds to optimize image size and security by:
-- Separating build-time dependencies from runtime
-- Creating a minimal final image
 
 ---
 
