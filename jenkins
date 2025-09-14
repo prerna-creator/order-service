@@ -1,0 +1,24 @@
+pipeline {
+    agent { label "node1"}
+
+    stages {
+        stage('clone') {
+            steps {
+                echo 'cloning the code from github'
+                git url: "https://github.com/prerna-creator/order-service.git", branch: "main"
+            }
+        }
+        stage('build') {
+            steps {
+                echo 'building docker image from dockerfile'
+                sh " docker build -t order-service:latest ."
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo 'deploying the above build image'
+                sh " docker run -d -p 3002:3002 --name order-service-container order-service"
+            }
+        }
+    }
+}
